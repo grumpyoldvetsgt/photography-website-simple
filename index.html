@@ -76,6 +76,189 @@
             .contact-grid { grid-template-columns: 1fr; }
             .footer-content { flex-direction: column; gap: 20px; }
         }
+        /* Portfolio Navigation */
+.portfolio-nav {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.portfolio-btn {
+    background: transparent;
+    border: 2px solid #3498db;
+    color: #3498db;
+    padding: 10px 25px;
+    margin: 0 10px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.portfolio-btn:hover,
+.portfolio-btn.active {
+    background: #3498db;
+    color: white;
+}
+
+/* Portfolio Items */
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.1);
+}
+
+.portfolio-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    padding: 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s;
+}
+
+.portfolio-item:hover .portfolio-overlay {
+    transform: translateY(0);
+}
+
+.portfolio-overlay h4 {
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+}
+
+/* Boudoir Password Protection */
+.boudoir-password-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.password-modal {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.password-modal input {
+    width: 100%;
+    padding: 12px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.password-modal button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    top: 50%;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    user-select: none;
+    transition: opacity 0.3s;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    opacity: 0.7;
+}
+
+.lightbox-prev {
+    left: 20px;
+}
+
+.lightbox-next {
+    right: 20px;
+}
+
+.lightbox-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+/* Hidden portfolio items */
+.portfolio-item.hidden {
+    display: none;
+}
+
+.boudoir-locked {
+    filter: blur(10px);
+    pointer-events: none;
+}
     </style>
 </head>
 <body>
@@ -136,23 +319,112 @@
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio">
-        <div class="container">
-            <h2>Portfolio</h2>
-            <p class="subtitle">Explore our collection of professional photography</p>
-            <div class="portfolio">
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1594171549465-a28ba0220a1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Portrait Photography">
+<section id="portfolio">
+    <div class="container">
+        <h2>Portfolio</h2>
+        <p class="subtitle">Explore our collection of professional photography</p>
+        
+        <!-- Portfolio Navigation -->
+        <div class="portfolio-nav">
+            <button class="portfolio-btn active" data-category="all">All Work</button>
+            <button class="portfolio-btn" data-category="portraits">Portraits</button>
+            <button class="portfolio-btn" data-category="family">Family</button>
+            <button class="portfolio-btn" data-category="boudoir">Boudoir</button>
+        </div>
+        
+        <!-- Portfolio Grid -->
+        <div class="portfolio">
+            <!-- Portrait Images -->
+            <div class="portfolio-item" data-category="portraits">
+                <img src="https://images.unsplash.com/photo-1594171549465-a28ba0220a1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Professional Portrait 1">
+                <div class="portfolio-overlay">
+                    <h4>Professional Portrait</h4>
+                    <p>Individual Portrait Session</p>
                 </div>
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1656177999031-0d3e8e62317a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Family Photography">
+            </div>
+            <div class="portfolio-item" data-category="portraits">
+                <img src="https://images.unsplash.com/photo-1629507313712-f21468afdf2e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Professional Portrait 2">
+                <div class="portfolio-overlay">
+                    <h4>Business Portrait</h4>
+                    <p>Professional Headshot</p>
                 </div>
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1629507313712-f21468afdf2e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Professional Photography">
+            </div>
+            <div class="portfolio-item" data-category="portraits">
+                <img src="https://images.unsplash.com/photo-1684919556999-a42d37ffccc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Professional Portrait 3">
+                <div class="portfolio-overlay">
+                    <h4>Creative Portrait</h4>
+                    <p>Artistic Portrait Session</p>
+                </div>
+            </div>
+            
+            <!-- Family Images -->
+            <div class="portfolio-item" data-category="family">
+                <img src="https://images.unsplash.com/photo-1656177999031-0d3e8e62317a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Family Photography 1">
+                <div class="portfolio-overlay">
+                    <h4>Family Portrait</h4>
+                    <p>Outdoor Family Session</p>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="family">
+                <img src="https://images.unsplash.com/photo-1637942189107-9b0622b33b90?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Family Photography 2">
+                <div class="portfolio-overlay">
+                    <h4>Family Memories</h4>
+                    <p>Indoor Family Session</p>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="family">
+                <img src="https://images.unsplash.com/photo-1685873875872-ecd77ba5a2b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Family Photography 3">
+                <div class="portfolio-overlay">
+                    <h4>Generational Photo</h4>
+                    <p>Multi-Generation Session</p>
+                </div>
+            </div>
+            
+            <!-- Boudoir Images -->
+            <div class="portfolio-item boudoir-protected" data-category="boudoir">
+                <img src="https://images.unsplash.com/photo-1712407336051-1ab4a8676079?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Artistic Boudoir 1">
+                <div class="portfolio-overlay">
+                    <h4>Elegant Boudoir</h4>
+                    <p>Artistic Boudoir Session</p>
+                </div>
+            </div>
+            <div class="portfolio-item boudoir-protected" data-category="boudoir">
+                <img src="https://images.pexels.com/photos/8796454/pexels-photo-8796454.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Artistic Boudoir 2">
+                <div class="portfolio-overlay">
+                    <h4>Classic Boudoir</h4>
+                    <p>Timeless Elegance</p>
+                </div>
+            </div>
+            <div class="portfolio-item boudoir-protected" data-category="boudoir">
+                <img src="https://images.unsplash.com/photo-1625856198195-909122522ec6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Artistic Boudoir 3">
+                <div class="portfolio-overlay">
+                    <h4>Artistic Boudoir</h4>
+                    <p>Creative Expression</p>
                 </div>
             </div>
         </div>
-    </section>
+        
+        <!-- Boudoir Password Protection -->
+        <div id="boudoir-password" class="boudoir-password-form" style="display: none;">
+            <div class="password-modal">
+                <h3>Protected Content</h3>
+                <p>Please enter the password to view boudoir portfolio</p>
+                <input type="password" id="boudoir-input" placeholder="Enter password">
+                <button onclick="checkBoudoirPassword()">Access Portfolio</button>
+                <button onclick="closeBoudoirModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Image Lightbox -->
+<div id="lightbox" class="lightbox" style="display: none;">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+    <a class="lightbox-prev" onclick="changeImage(-1)">&#10094;</a>
+    <a class="lightbox-next" onclick="changeImage(1)">&#10095;</a>
+</div>
 
     <!-- Contact Section -->
     <section id="contact" class="bg-light">
@@ -228,23 +500,148 @@
     </footer>
 
     <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+// Smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
         });
+    });
+});
 
-        // Contact form
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you soon.');
-            this.reset();
+// Contact form
+document.querySelector('.contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Thank you for your message! We will get back to you soon.');
+    this.reset();
+});
+
+// Portfolio filtering
+let currentImages = [];
+let currentImageIndex = 0;
+let boudoirUnlocked = false;
+
+function filterPortfolio(category) {
+    const items = document.querySelectorAll('.portfolio-item');
+    const buttons = document.querySelectorAll('.portfolio-btn');
+    
+    // Update active button
+    buttons.forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`[data-category="${category}"]`).classList.add('active');
+    
+    // Show/hide items
+    items.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+            item.classList.remove('hidden');
+            
+            // Check if boudoir needs password
+            if (category === 'boudoir' && !boudoirUnlocked) {
+                showBoudoirPassword();
+                return;
+            }
+        } else {
+            item.classList.add('hidden');
+        }
+    });
+    
+    // Update current images array
+    updateCurrentImages();
+}
+
+function updateCurrentImages() {
+    const visibleItems = document.querySelectorAll('.portfolio-item:not(.hidden)');
+    currentImages = Array.from(visibleItems);
+}
+
+function showBoudoirPassword() {
+    document.getElementById('boudoir-password').style.display = 'flex';
+}
+
+function closeBoudoirModal() {
+    document.getElementById('boudoir-password').style.display = 'none';
+    // Reset to "All Work" if boudoir not unlocked
+    if (!boudoirUnlocked) {
+        filterPortfolio('all');
+    }
+}
+
+function checkBoudoirPassword() {
+    const password = document.getElementById('boudoir-input').value;
+    if (password === 'boudoir2024') {
+        boudoirUnlocked = true;
+        document.getElementById('boudoir-password').style.display = 'none';
+        document.getElementById('boudoir-input').value = '';
+        filterPortfolio('boudoir');
+    } else {
+        alert('Incorrect password. Please try again.');
+        document.getElementById('boudoir-input').value = '';
+    }
+}
+
+// Lightbox functionality
+function openLightbox(img, caption) {
+    document.getElementById('lightbox').style.display = 'flex';
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox-caption').textContent = caption;
+    
+    // Find current image index
+    currentImageIndex = currentImages.findIndex(item => 
+        item.querySelector('img').src === img.src
+    );
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+}
+
+function changeImage(direction) {
+    currentImageIndex += direction;
+    
+    if (currentImageIndex >= currentImages.length) currentImageIndex = 0;
+    if (currentImageIndex < 0) currentImageIndex = currentImages.length - 1;
+    
+    const newImg = currentImages[currentImageIndex].querySelector('img');
+    const newCaption = currentImages[currentImageIndex].querySelector('.portfolio-overlay h4').textContent;
+    
+    document.getElementById('lightbox-img').src = newImg.src;
+    document.getElementById('lightbox-caption').textContent = newCaption;
+}
+
+// Initialize portfolio
+document.addEventListener('DOMContentLoaded', function() {
+    // Portfolio button listeners
+    document.querySelectorAll('.portfolio-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterPortfolio(this.dataset.category);
         });
-    </script>
+    });
+    
+    // Portfolio item click listeners
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+        item.addEventListener('click', function() {
+            if (this.dataset.category === 'boudoir' && !boudoirUnlocked) {
+                showBoudoirPassword();
+                return;
+            }
+            
+            const img = this.querySelector('img');
+            const caption = this.querySelector('.portfolio-overlay h4').textContent;
+            openLightbox(img, caption);
+        });
+    });
+    
+    // Lightbox close listeners
+    document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+        if (e.target === this) closeLightbox();
+    });
+    
+    // Initialize
+    updateCurrentImages();
+});
+</script>
 </body>
 </html>
+
 
